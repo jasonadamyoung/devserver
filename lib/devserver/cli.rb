@@ -109,7 +109,7 @@ module Devserver
       the_server = Devserver::CommandManager.new(options)
       if(the_server.is_port_open?)
         puts "Another process is running on Port: #{the_server.port}"
-        puts "Running stop command: #{the_server.command(stop)}"
+        puts "Running stop command: #{the_server.command('stop')}"
         the_server.stop_devserver
       end
       the_server.start_devserver
