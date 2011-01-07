@@ -8,7 +8,6 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jason Adam Young"]
   s.email       = ["jay@outfielding.net"]
-  s.homepage    = "http://devserver.outfielding.net"
   s.summary     = %q{Provides a wrapper around thin, similar to passenger standalone, for local ruby on rails development.}
   s.description = %q{Provides a wrapper around thin, similar to passenger standalone, for local ruby on rails development.}
   s.license = 'Apache-v2'

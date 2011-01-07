@@ -14,12 +14,12 @@ module Devserver
     def self.set_defaults
       if(!(@@app_root = self.determine_app_root))
         @@is_rails_dir = false
-        @@default_settings[:app_root] = '.'
+        @@app_root = '.'
       end
       @@default_settings[:port] = 3000
       @@default_settings[:environment] = 'development'
-      @@default_settings[:log_file] = "#{@@default_settings[:app_root]}/log/devserver.log"
-      @@default_settings[:pid_file] = "#{@@default_settings[:app_root]}/tmp/pids/devserver.pid"
+      @@default_settings[:log_file] = "#{@@app_root}/log/devserver.log"
+      @@default_settings[:pid_file] = "#{@@app_root}/tmp/pids/devserver.pid"
       @@default_settings[:mode] = 'start'
       @@default_settings[:server] = 'thin'
       self.load_defaults_from_yaml
@@ -43,7 +43,7 @@ module Devserver
 
     # Load defaults from a devserver.yaml file located in config/
     def self.load_defaults_from_yaml
-      configfile ="#{@@default_settings[:app_root]}/config/devserver.yml"
+      configfile ="#{@@app_root}/config/devserver.yml"
       if File.exists?(configfile) then
         @@default_settings[:configfile] = configfile
         temp = YAML.load_file(configfile)
