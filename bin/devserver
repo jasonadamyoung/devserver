@@ -19,6 +19,6 @@ $LOAD_PATH.unshift("#{source_root}/lib")
 
 require 'rubygems' rescue nil
 require 'devserver'
-
+require 'devserver/cli'
 Devserver::CLI.start
 
