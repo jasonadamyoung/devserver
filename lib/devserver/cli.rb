@@ -90,6 +90,21 @@ module Devserver
         end
       end
       
+      # exits with error if the specified web server gem is not available
+      def gem_error(server)
+        if(!server.command_available?)
+          puts "ERROR: The #{server.server} gem does not appear to be installed"
+          exit(1)
+        end
+      end
+      
+      # prints out a warning message if the specified web server gem is not available
+      def gem_warning(server)
+        if(!server.command_available?)
+          puts "WARNING:  The #{server.server} gem does not appear to be installed"
+        end
+      end
+      
       def print_defaults
         puts "default_settings:\n"
         config_keys = @@default_settings.keys.map{|k|k.to_s}
@@ -121,6 +136,7 @@ module Devserver
     def start
       rails_error
       the_server = Devserver::CommandManager.new(options)
+      gem_error(the_server)
       if(the_server.is_port_open?)
         puts "Another process is running on Port: #{the_server.port}"
         puts "Running stop command: #{the_server.command('stop')}"
@@ -138,6 +154,7 @@ module Devserver
     def debug
       rails_error
       the_server = Devserver::CommandManager.new(options)
+      gem_error(the_server)
       if(the_server.is_port_open?)
         puts "Another process is running on Port: #{the_server.port}"
         puts "Running stop command: #{the_server.command(stop)}"
@@ -150,7 +167,9 @@ module Devserver
     method_option :pid_file,:default => @@default_settings[:pid_file], :aliases => "-P", :desc => "Web server pid file"
     def stop
       rails_error
+      gem_error(the_server)
       the_server = Devserver::CommandManager.new(options)
+      gem_error(the_server)
       the_server.stop_devserver      
     end
     
@@ -166,6 +185,7 @@ module Devserver
     def command
       rails_warning
       the_server = Devserver::CommandManager.new(options)
+      gem_warning(the_server)
       if(options[:start])
         puts "start command: #{the_server.command('start')}"
       end

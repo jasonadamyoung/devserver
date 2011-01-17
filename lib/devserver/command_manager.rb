@@ -11,6 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+require 'rubygems'
 require 'socket'
 require 'timeout'
 
@@ -111,6 +112,22 @@ module Devserver
         raise DevserverError, "Unrecognized mode: #{mode}"
       end
     end
+    
+    # returns true/false if the gem corresponding to self.server is installed
+    #
+    # @return [Boolean] whether the gem is installed or not
+    def command_available?
+      case self.server
+      when 'passenger'
+        Gem.available?('passenger')
+      when 'thin'
+        Gem.available?('thin')
+      when 'mongrel'
+        Gem.available?('mongrel')
+      else
+        raise DevserverError, "Unrecognized web server: #{self.server}"
+      end
+    end
 
     # check to see if anything is still running on @port
     #
@@ -132,11 +149,15 @@ module Devserver
     end
   
     def start_devserver(mode = self.mode)
-      system("#{self.start_command(mode)}")
+      if(self.command_available?)
+        system("#{self.start_command(mode)}")
+      end
     end
     
     def stop_devserver
-      system("#{self.stop_command}")
+      if(self.command_available?)
+        system("#{self.stop_command}")
+      end
     end
   
   end
