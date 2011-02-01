@@ -19,8 +19,9 @@ module Devserver
   class CommandManager
     attr_accessor :port, :environment, :log_file, :pid_file, :mode, :server
   
-    # raises DevserverError if it doesn't appear we are in or one level down of a rails directory
+    # sets instance variables based on options, not limited to attr_accesor values
     #
+    # @param [Hash] options intialization options
     def initialize(options = {})
       options.keys.each do |key|
         self.instance_variable_set("@#{key.to_s}",options[key])

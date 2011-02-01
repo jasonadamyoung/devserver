@@ -11,7 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-
+require 'rubygems'
 require 'thor'
 require 'yaml'
 
@@ -105,6 +105,7 @@ module Devserver
         end
       end
       
+      # prints out the default settings
       def print_defaults
         puts "default_settings:\n"
         config_keys = @@default_settings.keys.map{|k|k.to_s}
@@ -112,6 +113,7 @@ module Devserver
           puts "  #{key} => #{@@default_settings[key.to_sym]} (#{@@default_settings_source[key.to_sym] || 'code'})\n"
         end
       end
+          
     end
 
 
