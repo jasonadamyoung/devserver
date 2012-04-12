@@ -119,11 +119,11 @@ module Devserver
     def command_available?
       case self.server
       when 'passenger'
-        Gem.available?('passenger')
+        gem_available?('passenger')
       when 'thin'
-        Gem.available?('thin')
+        gem_available?('thin')
       when 'mongrel'
-        Gem.available?('mongrel')
+        gem_available?('mongrel')
       else
         raise DevserverError, "Unrecognized web server: #{self.server}"
       end
@@ -157,6 +157,16 @@ module Devserver
     def stop_devserver
       if(self.command_available?)
         system("#{self.stop_command}")
+      end
+    end
+    
+    private
+    
+    def gem_available?(name)
+      if Gem::Specification.methods.include?('find_all_by_name')
+        !Gem::Specification.find_all_by_name(name).empty?
+      else
+        Gem.available?(name)
       end
     end
   
