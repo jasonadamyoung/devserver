@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Provides a wrapper around thin, similar to passenger standalone, for local ruby on rails development.}
   s.description = %q{Provides a wrapper around thin, similar to passenger standalone, for local ruby on rails development.}
   s.license = 'Apache-v2'
+  s.homepage      = %q{https://github.com/jasonadamyoung/devserver}
   s.rubyforge_project = "devserver"
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
