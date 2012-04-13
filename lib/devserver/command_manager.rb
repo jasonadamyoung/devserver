@@ -164,7 +164,7 @@ module Devserver
     private
     
     def gem_available?(name)
-      if Gem::Specification.methods.include?('find_all_by_name')
+      if Gem::Specification.methods.include?(:find_all_by_name)
         !Gem::Specification.find_all_by_name(name).empty?
       else
         Gem.available?(name)
